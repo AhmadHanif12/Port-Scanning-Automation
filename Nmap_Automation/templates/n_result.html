@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Script Results</title>
+    <title>Scan Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         body {
@@ -72,7 +72,7 @@
     </style>
 </head>
 <body>
-    <h1>Script Results</h1>
+    <h1>Scan Results</h1>
     <div class="table-container">
         <table>
             <thead>
@@ -93,7 +93,6 @@
             </tbody>
         </table>
     </div>
-    <!--<a href="{{ url_for('results') }}">View Scan Results</a> -->
     <br>
     <a href="{{ url_for('index') }}">Run Another Scan</a>
 </body>

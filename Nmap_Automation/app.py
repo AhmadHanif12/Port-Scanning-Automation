@@ -21,7 +21,7 @@ def is_compatible(flags):
             return False, incomp_set.intersection(flags)
     return True, None
 
-def run_nmap(ip_range, mode, scan_types, host_discovery_types, port_selection, custom_ports, service_detection_types, firewall_options, output_format, nmap_scripts):
+def run_nmap(ip_range, mode, scan_types=None, host_discovery_types=None, port_selection=None, custom_ports=None, service_detection_types=None, firewall_options=None, output_format=None, nmap_scripts=None):
     selected_flags = []
 
     if mode == '2':  # Advanced mode
@@ -88,21 +88,37 @@ def results():
         nmap_scripts = request.form.getlist('nmap_scripts')
 
         try:
-            # Run nmap and parse results
-            run_nmap(ip_range, mode, scan_types, host_discovery_types, port_selection, custom_ports, service_detection_types, firewall_options, output_format, nmap_scripts)
+            if mode == '1':
+                # Run nmap with basic settings
+                run_nmap(ip_range, mode)
+                # Parse XML to CSV for n_result.html
+                parse_xml_to_csv('output.xml', 'output.csv')
+                
+                # Read output.csv and pass to template for rendering
+                results = []
+                with open('output.csv', newline='') as csvfile:
+                    reader = csv.reader(csvfile)
+                    headers = next(reader)  # skip header
+                    for row in reader:
+                        results.append(row)
 
-            # Parse XML to CSV for results.html
-            parse_xml_to_csv('output.xml', 'output.csv')
+                return render_template('n_result.html', headers=headers, results=results)
+            else:
+                # Run nmap with advanced settings
+                run_nmap(ip_range, mode, scan_types, host_discovery_types, port_selection, custom_ports, service_detection_types, firewall_options, output_format, nmap_scripts)
+                
+                # Parse XML to CSV for results.html
+                parse_xml_to_csv('output.xml', 'output.csv')
 
-            # Read output.csv and pass to template for rendering
-            results = []
-            with open('output.csv', newline='') as csvfile:
-                reader = csv.reader(csvfile)
-                headers = next(reader)  # skip header
-                for row in reader:
-                    results.append(row)
+                # Read output.csv and pass to template for rendering
+                results = []
+                with open('output.csv', newline='') as csvfile:
+                    reader = csv.reader(csvfile)
+                    headers = next(reader)  # skip header
+                    for row in reader:
+                        results.append(row)
 
-            return render_template('results.html', headers=headers, results=results)
+                return render_template('results.html', headers=headers, results=results)
         except ValueError as e:
             return render_template('index.html', error=str(e))
     else:
@@ -131,4 +147,4 @@ def script_results():
         return render_template('script_results.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080,debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
