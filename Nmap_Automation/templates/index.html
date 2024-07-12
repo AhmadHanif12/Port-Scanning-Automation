@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="zoom: 95%;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nmap Automation</title>
+    <title>Port Guard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
@@ -32,6 +32,8 @@
  	   margin-top: -50px;
   	   z-index: 10; /* Ensure a higher z-index than the footer */
  	   position: relative;
+  	   max-height: 80vh; /* Limit height to 80% of viewport height */
+ 	   overflow-y: auto; /* Enable vertical scrolling when content overflows */
 	}
         .section {
             border: 1px solid #ccc;
@@ -85,7 +87,7 @@
  	   background-color: #343a40;
  	   color: white;
  	   text-align: center;
- 	   padding: 20px 0;
+ 	   padding: 10px 0;
  	   position: fixed; /* Fixed position to always stay at the bottom */
  	   bottom: 0;
  	   width: 100%;
@@ -191,7 +193,7 @@
 </head>
 <body>
     <header class="hero">
-        <h1>Nmap Automation</h1>
+        <h1>PORT GUARD</h1>
         <p>Automate your network scanning with ease using our tool</p>
     </header>
 
