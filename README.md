@@ -1,5 +1,5 @@
 
-# PORT Scan-Automation 
+# PORT Guard (Port Scan-Automation)  
 
 ## Introduction:
 Our project is an advanced web-based automation tool for Nmap, the popular network scanning utility. Designed with a user-friendly interface, this tool allows users to configure and execute Nmap scans effortlessly, even if they have limited technical expertise.
@@ -65,6 +65,10 @@ sudo python app.py
 
 #### Step 4:
 Visit http://127.0.0.1:8080/ in your browser
+
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/3df85fda-3a2c-4a3e-975f-0fbfe5afea82">
+
+#### Find manual.pdf for more details of our tool.
 
 ## Contributors:
 We are grateful to our wonderful contributors who have helped make this project better. Here are some of the amazing people who have contributed:
