@@ -2,46 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nmap Automation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #C0C0C0; /* Light background color */
-            overflow-y: auto; /* Enable vertical scroll */
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
         }
-        .container {
-            background-color: #fff; /* White background for the container */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 800px;
-            margin: 20px 0; /* Add margin to allow space for scrolling */
-        }
-        h1 {
+        .hero {
+            background-color: #007bff;
+            color: white;
+            padding: 50px 20px;
             text-align: center;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+        }
+        .hero h1 {
+            font-size: 3em;
             margin-bottom: 20px;
         }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+	.container {
+ 	   background-color: #fff;
+ 	   padding: 30px;
+ 	   border-radius: 10px;
+ 	   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 	   margin-top: -50px;
+  	   z-index: 10; /* Ensure a higher z-index than the footer */
+ 	   position: relative;
+	}
         .section {
-            border: 2px solid #ccc;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 10px;
+            padding: 20px;
             margin-bottom: 20px;
-            background-color: #fff;
+            background-color: #f1f1f1;
         }
         .invalid {
-            border: 2px solid red;
+            border-color: red !important;
         }
         .valid {
-            border: 2px solid green;
+            border-color: green !important;
         }
         .hint {
             color: gray;
@@ -65,11 +68,10 @@
             margin-left: 5px;
         }
         button[type="submit"] {
-            display: block;
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             font-size: 1em;
-            background-color: #333;
+            background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -77,112 +79,19 @@
             transition: background-color 0.3s;
         }
         button[type="submit"]:hover {
-            background-color: #555;
+            background-color: #0056b3;
         }
-        .dot-spinner {
-  --uib-size: 2.8rem;
-  --uib-speed: .9s;
-  --uib-color: #183153;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: var(--uib-size);
-  width: var(--uib-size);
-}
-
-.dot-spinner__dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
-  width: 100%;
-}
-
-.dot-spinner__dot::before {
-  content: '';
-  height: 20%;
-  width: 20%;
-  border-radius: 50%;
-  background-color: var(--uib-color);
-  transform: scale(0);
-  opacity: 0.5;
-  animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
-}
-
-.dot-spinner__dot:nth-child(2) {
-  transform: rotate(45deg);
-}
-
-.dot-spinner__dot:nth-child(2)::before {
-  animation-delay: calc(var(--uib-speed) * -0.875);
-}
-
-.dot-spinner__dot:nth-child(3) {
-  transform: rotate(90deg);
-}
-
-.dot-spinner__dot:nth-child(3)::before {
-  animation-delay: calc(var(--uib-speed) * -0.75);
-}
-
-.dot-spinner__dot:nth-child(4) {
-  transform: rotate(135deg);
-}
-
-.dot-spinner__dot:nth-child(4)::before {
-  animation-delay: calc(var(--uib-speed) * -0.625);
-}
-
-.dot-spinner__dot:nth-child(5) {
-  transform: rotate(180deg);
-}
-
-.dot-spinner__dot:nth-child(5)::before {
-  animation-delay: calc(var(--uib-speed) * -0.5);
-}
-
-.dot-spinner__dot:nth-child(6) {
-  transform: rotate(225deg);
-}
-
-.dot-spinner__dot:nth-child(6)::before {
-  animation-delay: calc(var(--uib-speed) * -0.375);
-}
-
-.dot-spinner__dot:nth-child(7) {
-  transform: rotate(270deg);
-}
-
-.dot-spinner__dot:nth-child(7)::before {
-  animation-delay: calc(var(--uib-speed) * -0.25);
-}
-
-.dot-spinner__dot:nth-child(8) {
-  transform: rotate(315deg);
-}
-
-.dot-spinner__dot:nth-child(8)::before {
-  animation-delay: calc(var(--uib-speed) * -0.125);
-}
-
-@keyframes pulse0112 {
-  0%,
-  100% {
-    transform: scale(0);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-.loader-container {
+	footer {
+ 	   background-color: #343a40;
+ 	   color: white;
+ 	   text-align: center;
+ 	   padding: 20px 0;
+ 	   position: fixed; /* Fixed position to always stay at the bottom */
+ 	   bottom: 0;
+ 	   width: 100%;
+ 	   z-index: 5; /* Lower z-index than .container */
+	}
+        .loader-container {
             display: none;
             position: fixed;
             top: 0;
@@ -194,146 +103,251 @@
             align-items: center;
             z-index: 9999;
         }
+        .dot-spinner {
+            --uib-size: 2.8rem;
+            --uib-speed: .9s;
+            --uib-color: #183153;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: var(--uib-size);
+            width: var(--uib-size);
+        }
+        .dot-spinner__dot {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            width: 100%;
+        }
+        .dot-spinner__dot::before {
+            content: '';
+            height: 20%;
+            width: 20%;
+            border-radius: 50%;
+            background-color: var(--uib-color);
+            transform: scale(0);
+            opacity: 0.5;
+            animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
+        }
+        .dot-spinner__dot:nth-child(2) {
+            transform: rotate(45deg);
+        }
+        .dot-spinner__dot:nth-child(2)::before {
+            animation-delay: calc(var(--uib-speed) * -0.875);
+        }
+        .dot-spinner__dot:nth-child(3) {
+            transform: rotate(90deg);
+        }
+        .dot-spinner__dot:nth-child(3)::before {
+            animation-delay: calc(var (--uib-speed) * -0.75);
+        }
+        .dot-spinner__dot:nth-child(4) {
+            transform: rotate(135deg);
+        }
+        .dot-spinner__dot:nth-child(4)::before {
+            animation-delay: calc(var (--uib-speed) * -0.625);
+        }
+        .dot-spinner__dot:nth-child(5) {
+            transform: rotate(180deg);
+        }
+        .dot-spinner__dot:nth-child(5)::before {
+            animation-delay: calc(var (--uib-speed) * -0.5);
+        }
+        .dot-spinner__dot:nth-child(6) {
+            transform: rotate(225deg);
+        }
+        .dot-spinner__dot:nth-child(6)::before {
+            animation-delay: calc(var (--uib-speed) * -0.375);
+        }
+        .dot-spinner__dot:nth-child(7) {
+            transform: rotate(270deg);
+        }
+        .dot-spinner__dot:nth-child(7)::before {
+            animation-delay: calc(var (--uib-speed) * -0.25);
+        }
+        .dot-spinner__dot:nth-child(8) {
+            transform: rotate(315deg);
+        }
+        .dot-spinner__dot:nth-child(8)::before {
+            animation-delay: calc(var (--uib-speed) * -0.125);
+        }
+        @keyframes pulse0112 {
+            0%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <header class="hero">
         <h1>Nmap Automation</h1>
-        <div class="section">
-            <form method="post" action="/results" onsubmit="showLoader()">
+        <p>Automate your network scanning with ease using our tool</p>
+    </header>
+
+    <div class="container">
+        <form method="post" action="/results" onsubmit="showLoader()">
+            <div class="section">
+                <h2>Basic Information</h2>
                 <label for="ip_range">Enter IP address or range:</label>
-                <input type="text" id="ip_range" name="ip_range" required>
+                <input type="text" id="ip_range" name="ip_range" class="form-control" required>
                 <span class="hint">Format: 192.168.0.1 or 192.168.0.1-255 or nu.edu.pk</span>
-		<br>
-                <label for="mode"> Select mode:</label>
-                <select id="mode" name="mode" required>
+                <br>
+                <label for="mode">Select mode:</label>
+                <select id="mode" name="mode" class="form-select" required>
                     <option value="1">Normal</option>
                     <option value="2">Advanced</option>
                 </select>
             </div>
-
             <div class="section" id="advanced_options" style="display:none;">
-                <h3>Scan Type(s):</h3>
-                <div>
+                <h2>Advanced Options</h2>
+                <div class="mb-3">
                     <label for="scan_types">Select scan type:</label>
-                    <select id="scan_types">
-                        <option value="-sS">TCP SYN port scan (Stealth scan)</option>
-                        <option value="-sT">TCP connect port scan</option>
-                        <option value="-sU">UDP port scan</option>
-                        <option value="-sA">TCP ACK port scan</option>
-                        <option value="-sN">TCP Null scan</option>
-                        <option value="-sF">TCP FIN scan</option>
-                        <option value="-sX">TCP Xmas scan</option>
-                        <option value="-sP">ARP scan</option>
-                    </select>
-                    <button type="button" onclick="addOption('scan_types', 'selected_scan_types')">Add</button>
+                    <div class="input-group">
+                        <select id="scan_types" class="form-select">
+                            <option value="-sS">TCP SYN port scan (Stealth scan)</option>
+                            <option value="-sT">TCP connect port scan</option>
+                            <option value="-sU">UDP port scan</option>
+                            <option value="-sA">TCP ACK port scan</option>
+                            <option value="-sN">TCP Null scan</option>
+                            <option value="-sF">TCP FIN scan</option>
+                            <option value="-sX">TCP Xmas scan</option>
+                            <option value="-sP">ARP scan</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addOption('scan_types', 'selected_scan_types')">Add</button>
+                    </div>
                 </div>
                 <div class="selected-options" id="selected_scan_types"></div>
                 <input type="hidden" name="scan_types" id="scan_types_input">
 
-                <h3>Host Discovery Option(s):</h3>
-                <label for="host_discovery_types">Select host discovery option:</label>
-                <select id="host_discovery_types" name="host_discovery_types">
-                  <!--  <option value="-sn">Disable port scanning (Host discovery only)</option> -->
-                    <option value="-Pn">Disable host discovery (Port scan only)</option>
-                    <option value="-PS80">TCP SYN discovery on port 80</option>
-                    <option value="-PA80">TCP ACK discovery on port 80</option>
-                    <option value="-PR">ARP discovery</option>
-                    <option value="-PU">UDP discovery</option>
-                </select>
-
-                <h3>Port Selection:</h3>
-                <label><input type="radio" name="port_selection" value="default" checked> Default (1-1024)</label>
-                <label><input type="radio" name="port_selection" value="custom"> Custom ports:</label>
-                <input type="text" id="custom_ports" name="custom_ports" placeholder="e.g., 80,443,21 or 1-65535" disabled>
-
-                <h3>Service Version and OS Detection Option(s):</h3>
-                <div>
-                    <label for="service_detection_types">Select service detection option:</label>
-                    <select id="service_detection_types">
-                        <option value="-sV">Determine the version of the service running on port</option>
-                        <option value="-O">Remote OS detection</option>
-                        <option value="--version-intensity 5">Adjust version detection intensity to 5</option>
-                        <option value="--osscan-limit">Limit OS scan to promising targets</option>
-                        <option value="--osscan-guess">Guess OS more aggressively</option>
+                <div class="mb-3">
+                    <label for="host_discovery_types">Select host discovery option:</label>
+                    <select id="host_discovery_types" name="host_discovery_types" class="form-select">
+                        <option value="-Pn">Disable host discovery (Port scan only)</option>
+                        <option value="-PS80">TCP SYN discovery on port 80</option>
+                        <option value="-PA80">TCP ACK discovery on port 80</option>
+                        <option value="-PR">ARP discovery</option>
+                        <option value="-PU">UDP discovery</option>
                     </select>
-                    <button type="button" onclick="addOption('service_detection_types', 'selected_service_detection_types')">Add</button>
+                </div>
+
+                <div class="mb-3">
+                    <h3>Port Selection</h3>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="port_selection" value="default" id="default_ports" checked>
+                        <label class="form-check-label" for="default_ports">Default (1-1024)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="port_selection" value="custom" id="custom_ports_option">
+                        <label class="form-check-label" for="custom_ports_option">Custom ports:</label>
+                    </div>
+                    <input type="text" id="custom_ports" name="custom_ports" class="form-control mt-2" placeholder="e.g., 80,443,21 or 1-65535" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label for="service_detection_types">Select service detection option:</label>
+                    <div class="input-group">
+                        <select id="service_detection_types" class="form-select">
+                            <option value="-sV">Determine the version of the service running on port</option>
+                            <option value="-O">Remote OS detection</option>
+                            <option value="--version-intensity 5">Adjust version detection intensity to 5</option>
+                            <option value="--osscan-limit">Limit OS scan to promising targets</option>
+                            <option value="--osscan-guess">Guess OS more aggressively</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addOption('service_detection_types', 'selected_service_detection_types')">Add</button>
+                    </div>
                 </div>
                 <div class="selected-options" id="selected_service_detection_types"></div>
                 <input type="hidden" name="service_detection_types" id="service_detection_types_input">
 
-                <h3>Firewall / IDS Evasion and Spoofing Option(s):</h3>
-                <div>
+                <div class="mb-3">
                     <label for="firewall_options">Select firewall evasion option:</label>
-                    <select id="firewall_options">
-                        <option value="-f">Scan using fragmented IP packets</option>
-                        <option value="-D RND:10">Send scans from 10 decoy IPs randomly</option>
-                        <option value="--source-port 53">Scan using a specific source port 53</option>
-                        <option value="--data-length 50">Use a specific payload length 50</option>
-                       <!-- <option value="--ip-options '\\x83\\x03\\x03'">Use a specific IP option</option> -->
-                    </select>
-                    <button type="button" onclick="addOption('firewall_options', 'selected_firewall_options')">Add</button>
+                    <div class="input-group">
+                        <select id="firewall_options" class="form-select">
+                            <option value="-f">Scan using fragmented IP packets</option>
+                            <option value="-D RND:10">Send scans from 10 decoy IPs randomly</option>
+                            <option value="--source-port 53">Scan using a specific source port 53</option>
+                            <option value="--data-length 50">Use a specific payload length 50</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addOption('firewall_options', 'selected_firewall_options')">Add</button>
+                    </div>
                 </div>
                 <div class="selected-options" id="selected_firewall_options"></div>
                 <input type="hidden" name="firewall_options" id="firewall_options_input">
 
-                <h3>Output Format:</h3>
-                <div>
+                <div class="mb-3">
                     <label for="output_format">Select output format:</label>
-                    <select id="output_format">
-                        <option value="-oN output.txt">Normal</option>
-                        <option value="-oX output.xml">XML</option>
-                        <option value="-oG output.grep">Grepable</option>
-                        <option value="-oA output">All formats</option>
-                    </select>
-                    <button type="button" onclick="addOption('output_format', 'selected_output_format')">Add</button>
+                    <div class="input-group">
+                        <select id="output_format" class="form-select">
+                            <option value="-oN output.txt">Normal</option>
+                            <option value="-oX output.xml">XML</option>
+                            <option value="-oG output.grep">Grepable</option>
+                            <option value="-oA output">All formats</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addOption('output_format', 'selected_output_format')">Add</button>
+                    </div>
                 </div>
                 <div class="selected-options" id="selected_output_format"></div>
                 <input type="hidden" name="output_format" id="output_format_input">
 
-                <h3>Nmap Script(s):</h3>
-                <div>
+                <div class="mb-3">
                     <label for="nmap_scripts">Select Nmap script:</label>
-                    <select id="nmap_scripts">
-                        <option value="--script=http-enum">HTTP Enum</option>
-                        <option value="--script=ftp-anon">FTP Anon</option>
-                        <option value="--script=smb-os-discovery">SMB OS Discovery</option>
-                        <option value="--script=ssl-cert">SSL Cert</option>
-                     <!--   <option value="--script=vuln">Vulnerability</option> -->
-                    </select>
-                    <button type="button" onclick="addOption('nmap_scripts', 'selected_nmap_scripts')">Add</button>
+                    <div class="input-group">
+                        <select id="nmap_scripts" class="form-select">
+                            <option value="--script=http-enum">HTTP Enum</option>
+                            <option value="--script=ftp-anon">FTP Anon</option>
+                            <option value="--script=smb-os-discovery">SMB OS Discovery</option>
+                            <option value="--script=ssl-cert">SSL Cert</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addOption('nmap_scripts', 'selected_nmap_scripts')">Add</button>
+                    </div>
                 </div>
                 <div class="selected-options" id="selected_nmap_scripts"></div>
                 <input type="hidden" name="nmap_scripts" id="nmap_scripts_input">
             </div>
 
-            <button type="submit">Run Nmap</button>
+            <button type="submit" class="btn btn-primary">Run Nmap</button>
         </form>
     </div>
-<div class="loader-container" id="loader">
-    <div class="dot-spinner">
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
+
+    <footer>
+        <p>&copy; 2024 Nmap Automation. All rights reserved.</p>
+    </footer>
+
+    <div class="loader-container" id="loader">
+        <div class="dot-spinner">
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+            <div class="dot-spinner__dot"></div>
+        </div>
     </div>
-</div>
 
     <script>
-    function showLoader() {
+        function showLoader() {
             document.getElementById('loader').style.display = 'flex';
         }
-	function validateIP(ip) {
-    		const ipRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(-(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/;
-    		const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]{1,63}\.)+[a-zA-Z]{2,6}$/;
 
-    		return ipRegex.test(ip) || domainRegex.test(ip);
-}
+        function validateIP(ip) {
+            const ipRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(-(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))?$/;
+            const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]{1,63}\.)+[a-zA-Z]{2,6}$/;
 
+            return ipRegex.test(ip) || domainRegex.test(ip);
+        }
 
         function addOption(selectId, containerId) {
             const selectElement = document.getElementById(selectId);
@@ -347,6 +361,7 @@
 
             const button = document.createElement('button');
             button.textContent = 'x';
+            button.classList.add('btn-close', 'ms-2');
             button.onclick = function () {
                 container.removeChild(span);
                 updateHiddenInput(selectId, containerId);
@@ -393,5 +408,6 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
