@@ -9,12 +9,15 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            position: relative;
         }
         .hero {
             background-color: #007bff;
             color: white;
             padding: 50px 20px;
             text-align: center;
+            animation: fadeIn 2s ease-in-out;
         }
         .hero h1 {
             font-size: 3em;
@@ -24,23 +27,25 @@
             font-size: 1.2em;
             margin-bottom: 40px;
         }
-	.container {
- 	   background-color: #fff;
- 	   padding: 30px;
- 	   border-radius: 10px;
- 	   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- 	   margin-top: -50px;
-  	   z-index: 10; /* Ensure a higher z-index than the footer */
- 	   position: relative;
-  	   max-height: 148vh; /* Limit height to 80% of viewport height */
- 	   overflow-y: auto; /* Enable vertical scrolling when content overflows */
-	}
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            margin-top: -50px;
+            z-index: 10;
+            position: relative;
+            max-height: 148vh;
+            overflow-y: auto;
+            animation: slideIn 1s ease-out;
+        }
         .section {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 20px;
             margin-bottom: 20px;
             background-color: #f1f1f1;
+            animation: fadeIn 1.5s ease-in-out;
         }
         .invalid {
             border-color: red !important;
@@ -62,6 +67,7 @@
             padding: 5px 10px;
             margin-right: 5px;
             margin-bottom: 5px;
+            animation: bounceIn 0.5s ease;
         }
         .selected-options span button {
             background: none;
@@ -78,21 +84,23 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
         }
         button[type="submit"]:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
-	footer {
- 	   background-color: #343a40;
- 	   color: white;
- 	   text-align: center;
- 	   padding: 10px 0;
- 	   position: fixed; /* Fixed position to always stay at the bottom */
- 	   bottom: 0;
- 	   width: 100%;
- 	   z-index: 5; /* Lower z-index than .container */
-	}
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 5;
+            animation: fadeIn 2s ease-in-out;
+        }
         .loader-container {
             display: none;
             position: fixed;
@@ -187,6 +195,62 @@
             50% {
                 transform: scale(1);
                 opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        .background-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .background-effects::before, .background-effects::after {
+            content: '';
+            position: absolute;
+            width: 300%;
+            height: 300%;
+            top: -100%;
+            left: -100%;
+            background: linear-gradient(60deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.2), rgba(0, 123, 255, 0.3), rgba(0, 123, 255, 0.4));
+            animation: moveBackground 10s infinite linear;
+        }
+        @keyframes moveBackground {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(100%, 100%);
             }
         }
     </style>
