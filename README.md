@@ -43,6 +43,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 - *pip (Python package installer)*
 
+- *Nmap 7.94*
 ### Installation
 
 #### Step 1:
