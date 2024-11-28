@@ -19,3 +19,5 @@ echo 'Deploying....'
 // Here you can define commands for your deployment
 }
 }
+}
+}
