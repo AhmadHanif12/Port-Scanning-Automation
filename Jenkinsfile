@@ -29,7 +29,7 @@ echo 'Deploying....'
   failure {
             //This action will happen only if the build has failed
             echo 'Post Action if build failed'
-          }
+    }
 }
 
 }
